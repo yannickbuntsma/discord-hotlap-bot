@@ -1,4 +1,4 @@
-import { getTime, toSeconds } from './time.js'
+import { getTime, toSeconds } from './time'
 
 describe('Time utils', () => {
   describe('getTime', () => {
@@ -17,7 +17,7 @@ describe('Time utils', () => {
   })
 
   describe('toSeconds', () => {
-    const scenarios = [
+    const scenarios: [string, number][] = [
       ['0.42.123', 42.123],
       ['1.32.536', 92.536],
       ['4.01.1', 241.1],

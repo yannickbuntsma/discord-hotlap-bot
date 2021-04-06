@@ -17,6 +17,10 @@ client.on('message', (m) => {
   if (m.content === '!user-info') {
     m.channel.send(`Your username: ${m.author.username}\nYour ID: ${m.author.id}`)
   }
+
+  if (m.content === '!stand') {
+    m.channel.messages.fetch().then((cm) => cm.each((m) => console.log(m.content)))
+  }
 })
 
 client.login(process.env.TOKEN)
