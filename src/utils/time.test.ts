@@ -1,17 +1,17 @@
-import { getTime, toSeconds } from './time'
+import { getLaptime, toSeconds } from './time'
 
 describe('Time utils', () => {
-  describe('getTime', () => {
+  describe('getLaptime', () => {
     const scenarios = [
       ['1.30.423, maar wil er nog wat afkrijgen.', '1.30.423'],
-      ['Eerste poging 1.12,536, maar...', '1.12,536'],
-      ['Eerste poging 1:12,536, maar...', '1:12,536'],
-      ['Test 1:12.536. maar...', '1:12.536'],
+      ['Eerste poging 1.12,536, maar...', '1.12.536'],
+      ['Eerste poging 1:12,536, maar...', '1.12.536'],
+      ['Test 1:12.536. maar...', '1.12.536'],
     ]
 
     scenarios.forEach(([input, output]) => {
       it(input, () => {
-        expect(getTime(input)).toEqual(output)
+        expect(getLaptime(input)).toEqual(output)
       })
     })
   })
