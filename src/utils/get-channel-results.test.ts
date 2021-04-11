@@ -1,8 +1,5 @@
 import { getChannelResults } from './get-channel-results'
 
-const randomNumber = (max: number) => Math.ceil(Math.random() * max)
-const delimiters = [':', '.', ',']
-
 const testData = [
   {
     id: '829810709671968788',
@@ -15,6 +12,43 @@ const testData = [
       avatar: '6de9aa8b5aac095cff7d270511dec2f6',
       discriminator: '9087',
       public_flags: 0,
+    },
+    attachments: [
+      {
+        id: '829810705950572605',
+        filename: 'IMG_20210408_221002.jpg',
+        size: 4517651,
+        url:
+          'https://cdn.discordapp.com/attachments/824257306971471882/829810705950572605/IMG_20210408_221002.jpg',
+        proxy_url:
+          'https://media.discordapp.net/attachments/824257306971471882/829810705950572605/IMG_20210408_221002.jpg',
+        width: 4608,
+        height: 3456,
+        content_type: 'image/jpeg',
+      },
+    ],
+    embeds: [],
+    mentions: [],
+    mention_roles: [],
+    pinned: false,
+    mention_everyone: false,
+    tts: false,
+    timestamp: '2021-04-08T20:11:30.323000+00:00',
+    edited_timestamp: null,
+    flags: 0,
+  },
+  {
+    id: '829810709671968788',
+    type: 0,
+    content: `I'm a super-fast bot --> 0.00,001'`,
+    channel_id: '824257306971471882',
+    author: {
+      id: '766722023711834152',
+      username: 'Mr. Robot',
+      avatar: '6de9aa8b5aac095cff7d270511dec2f6',
+      discriminator: '9087',
+      public_flags: 0,
+      bot: true,
     },
     attachments: [
       {
@@ -770,12 +804,12 @@ describe('getChannelResults', () => {
           "username": "Jeffrey/Bigjeff1982",
         },
         Object {
-          "laptime": "1.31.9",
+          "laptime": "1.31.900",
           "userId": "351723605492760577",
           "username": "neonostra",
         },
         Object {
-          "laptime": "61437638",
+          "laptime": "1.29.526",
           "userId": "388797131860738068",
           "username": "Stammeleer",
         },

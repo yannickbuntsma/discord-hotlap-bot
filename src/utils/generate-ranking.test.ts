@@ -35,8 +35,8 @@ describe('generateRanking', () => {
           "result": Object {
             "displayTime": "1.42.494",
             "seconds": 102.494,
-            "timeToFirst": "0.000",
-            "timeToNext": "102.494",
+            "timeToFirst": 102.494,
+            "timeToNext": 0,
           },
           "userId": "__F",
           "username": "FOO",
@@ -45,8 +45,8 @@ describe('generateRanking', () => {
           "result": Object {
             "displayTime": "1.43.209",
             "seconds": 103.209,
-            "timeToFirst": "102.494",
-            "timeToNext": "0.715",
+            "timeToFirst": 103.209,
+            "timeToNext": 0.7150000000000034,
           },
           "userId": "__f",
           "username": "FAY",
@@ -55,8 +55,8 @@ describe('generateRanking', () => {
           "result": Object {
             "displayTime": "1.43.334",
             "seconds": 103.334,
-            "timeToFirst": "205.703",
-            "timeToNext": "0.125",
+            "timeToFirst": 104.049,
+            "timeToNext": 0.125,
           },
           "userId": "__B",
           "username": "BAR",
@@ -65,8 +65,8 @@ describe('generateRanking', () => {
           "result": Object {
             "displayTime": "1.47.647",
             "seconds": 107.647,
-            "timeToFirst": "309.037",
-            "timeToNext": "4.313",
+            "timeToFirst": 108.48700000000001,
+            "timeToNext": 4.313000000000002,
           },
           "userId": "__A",
           "username": "AAP",
