@@ -1,8 +1,9 @@
 import dotenv from 'dotenv'
 import Discord from 'discord.js'
 
-import { getTime } from './utils/time'
 import { generateRanking } from './utils/generate-ranking'
+import { getChannelResults } from './utils/get-channel-results'
+import { generateLeaderboardMessage } from './utils/generate-ranking-message'
 
 dotenv.config()
 
@@ -62,7 +63,12 @@ client.on('message', async (m) => {
     const cm = await m.channel.messages.fetch()
     const messages = Array.from(cm.values())
 
-    const ranking = generateRanking(messages)
+    const results = getChannelResults(messages)
+    const ranking = generateRanking(results)
+
+    // const message = generateLeaderboardMessage(ranking)
+
+    // m.channel.send(message)
   }
 })
 

@@ -1,10 +1,12 @@
 import { Message } from 'discord.js'
+import { isLaptime, LaptimeWithUserData } from '../types'
 import { getLaptime } from './time'
 
-export function getChannelResults(messages: Message[]): UserLaptime[] {
-  return messages.reduce<UserLaptime[]>((acc, m) => {
+export function getChannelResults(messages: Message[]): LaptimeWithUserData[] {
+  return messages.reduce<LaptimeWithUserData[]>((acc, m) => {
     const laptime = getLaptime(m.content)
-    if (!laptime) {
+
+    if (!laptime || !isLaptime(laptime)) {
       return acc
     }
 

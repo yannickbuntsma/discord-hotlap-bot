@@ -1,63 +1,36 @@
-import { getLaptime, toSeconds } from './time'
+import { Ranking, UserId, LaptimeWithUserData } from '../types'
+import { toSeconds } from './time'
 
-type UserLaptimeRanking = {
-  userId: UserId
-  username: UserName
-  laptime: { displayTime: string; seconds: Seconds; timeToNext: string; timeToFirst: string }
-}[]
+export function generateRanking(userWithResults: LaptimeWithUserData[]): Ranking {
+  const sortedResults = userWithResults.sort((a, b) => toSeconds(a.laptime) - toSeconds(b.laptime))
 
-function getBestLaptime(prev: Laptime | undefined, curr: Laptime): Laptime {
-  if (!prev) {
-    return curr
-  }
+  const usersWithTime: UserId[] = []
+  const bestUserLaptimes: Ranking = []
 
-  const currSeconds = toSeconds(curr)
-  const prevSeconds = toSeconds(prev)
-
-  // If previous time is lower than current time, keep previous time.
-  return prevSeconds < currSeconds ? prev : curr
-}
-
-export function generateRanking(userLaptimes: UserLaptime[]): UserLaptimeRanking {
-  const ranking = userLaptimes.sort((a, b) => {
-    const secondsA = toSeconds(a.laptime)
-    const secondsB = toSeconds(b.laptime)
-
-    return secondsA - secondsB
-  })
-
-  const processedUsers: UserId[] = []
-
-  const results = ranking.reduce<UserLaptimeRanking>((acc, userLaptime, index) => {
-    /**
-     * We don't want to check the pinned standings message.
-     */
-    // if (m.id === pinnedMessageId) {
-    //   return acc
-    // }
-
-    const { userId, username, laptime } = userLaptime
-    const seconds = toSeconds(laptime)
-
-    if (processedUsers.indexOf(userId) > -1) {
-      console.log('Already processed user')
-      return acc
+  for (const result of sortedResults) {
+    if (usersWithTime.includes(result.userId)) {
+      continue
     }
 
-    return [
-      ...acc,
-      {
-        userId,
-        username,
-        laptime: {
-          displayTime: laptime,
-          seconds,
-          timeToNext: (seconds - (acc[index - 1]?.laptime.seconds || 0)).toFixed(3),
-          timeToFirst: acc.reduce((sum, r) => sum + r.laptime.seconds, 0).toFixed(3),
-        },
-      },
-    ]
-  }, [])
+    const nextRankedUser = bestUserLaptimes[bestUserLaptimes.length - 1]
 
-  return results
+    const { userId, username, laptime } = result
+    const seconds = toSeconds(laptime)
+    const timeToNext = (seconds - (nextRankedUser?.result.seconds || 0)).toFixed(3)
+    const timeToFirst = bestUserLaptimes.reduce((s, r) => s + r.result.seconds, 0).toFixed(3)
+
+    bestUserLaptimes.push({
+      userId,
+      username,
+      result: {
+        displayTime: laptime,
+        seconds,
+        timeToNext,
+        timeToFirst,
+      },
+    })
+    usersWithTime.push(result.userId)
+  }
+
+  return bestUserLaptimes
 }
