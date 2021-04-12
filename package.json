@@ -8,8 +8,9 @@
     "build": "babel --extensions \".ts\" src -d dist",
     "watch": "babel-watch --extensions \".ts\" src",
     "dev": "yarn watch",
-    "start": "yarn build && node dist",
-    "test": "jest"
+    "start": "node dist",
+    "test": "jest",
+    "lint": "tsc --noEmit"
   },
   "dependencies": {
     "@babel/cli": "^7.13.14",
