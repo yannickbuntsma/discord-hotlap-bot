@@ -28,6 +28,11 @@ describe('generateRanking', () => {
     expect(result).toHaveLength(4)
   })
 
+  it('should sort the results from fastest to slowest lap time', () => {
+    const order = result.map((r) => r.result.displayTime)
+    expect(order).toEqual(['1.42.494', '1.43.209', '1.43.334', '1.47.647'])
+  })
+
   it('should match a snaphot of the output', () => {
     expect(generateRanking(testData)).toMatchInlineSnapshot(`
       Array [
@@ -35,7 +40,7 @@ describe('generateRanking', () => {
           "result": Object {
             "displayTime": "1.42.494",
             "seconds": 102.494,
-            "timeToFirst": 102.494,
+            "timeToFirst": 0,
             "timeToNext": 0,
           },
           "userId": "__F",
@@ -45,7 +50,7 @@ describe('generateRanking', () => {
           "result": Object {
             "displayTime": "1.43.209",
             "seconds": 103.209,
-            "timeToFirst": 103.209,
+            "timeToFirst": 0.7150000000000034,
             "timeToNext": 0.7150000000000034,
           },
           "userId": "__f",
@@ -55,7 +60,7 @@ describe('generateRanking', () => {
           "result": Object {
             "displayTime": "1.43.334",
             "seconds": 103.334,
-            "timeToFirst": 104.049,
+            "timeToFirst": 0.8400000000000034,
             "timeToNext": 0.125,
           },
           "userId": "__B",
@@ -65,7 +70,7 @@ describe('generateRanking', () => {
           "result": Object {
             "displayTime": "1.47.647",
             "seconds": 107.647,
-            "timeToFirst": 108.48700000000001,
+            "timeToFirst": 5.153000000000006,
             "timeToNext": 4.313000000000002,
           },
           "userId": "__A",

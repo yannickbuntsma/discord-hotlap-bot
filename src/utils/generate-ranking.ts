@@ -1,4 +1,4 @@
-import { Ranking, Result, Seconds, UserId, LaptimeWithUserData, UserWithResults } from '../types'
+import { Ranking, UserId, LaptimeWithUserData } from '../types'
 import { toSeconds } from './time'
 
 export function generateRanking(userWithResults: LaptimeWithUserData[]): Ranking {
@@ -17,7 +17,7 @@ export function generateRanking(userWithResults: LaptimeWithUserData[]): Ranking
     const { userId, username, laptime } = result
     const seconds = toSeconds(laptime)
     const timeToNext = nextRankedUser ? seconds - nextRankedUser?.result.seconds : 0
-    const timeToFirst = bestUserLaptimes.reduce((s, r) => s + r.result.timeToNext, seconds)
+    const timeToFirst = nextRankedUser ? nextRankedUser.result.timeToFirst + timeToNext : 0
 
     bestUserLaptimes.push({
       userId,
