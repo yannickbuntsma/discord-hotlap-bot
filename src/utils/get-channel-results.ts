@@ -8,6 +8,7 @@ export function getChannelResults(messages: Message[]): LaptimeWithUserData[] {
     if (m.author.bot) {
       return acc
     }
+
     const laptime = getLaptime(m.content)
 
     if (!laptime || !isLaptime(laptime)) {

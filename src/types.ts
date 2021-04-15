@@ -2,7 +2,7 @@ export type Seconds = number
 type N = number
 type ZTF = 0 | 1 | 2 | 3 | 4 | 5 // zero-to-five
 
-export type Interval = string
+export type Interval = Seconds
 export type Laptime = `${N}.${ZTF}${N}.${N}${N}${N}` // e.g. "2.45.678"
 
 export function isLaptime(string?: string): string is Laptime {
