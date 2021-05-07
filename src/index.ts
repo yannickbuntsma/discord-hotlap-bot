@@ -6,6 +6,7 @@ import { getChannelResults } from './utils/get-channel-results'
 import { generateLeaderboardMessage } from './utils/generate-ranking-message'
 import { BOT_RANKING_MESSAGE_TITLE } from './constants'
 import { getBotRankingMessage } from './utils/get-bot-ranking-message'
+import { getMessages } from './utils/get-text-channel-messages'
 
 dotenv.config()
 
@@ -43,8 +44,7 @@ client.on('message', async (m) => {
   }
 
   if (m.content.startsWith('!clean')) {
-    const cm = await m.channel.messages.fetch({ limit: 100 })
-    const messages = Array.from(cm.values())
+    const messages = await getMessages(m.channel)
 
     while (getBotRankingMessage(messages)) {
       getBotRankingMessage(messages)?.delete()
@@ -52,8 +52,7 @@ client.on('message', async (m) => {
   }
 
   if (m.content.startsWith('!start')) {
-    const cm = await m.channel.messages.fetch({ limit: 100 })
-    const messages = Array.from(cm.values())
+    const messages = await getMessages(m.channel)
 
     const botRankingMessage = getBotRankingMessage(messages)
 
@@ -80,6 +79,11 @@ client.on('message', async (m) => {
     })
   }
 
+  if (m.content.startsWith('!count')) {
+    const messages = await getMessages(m.channel)
+    return m.reply(`Amount of messages in this channel: ${messages.length}`)
+  }
+
   if (m.content.startsWith('!stand')) {
     console.log('Stand ophalen...')
     /**
@@ -88,8 +92,7 @@ client.on('message', async (m) => {
      * Create an ordered list of these names and times, based on time.
      */
 
-    const cm = await m.channel.messages.fetch({ limit: 100 })
-    const messages = Array.from(cm.values())
+    const messages = await getMessages(m.channel)
 
     const botRankingMessage = getBotRankingMessage(messages)
 
