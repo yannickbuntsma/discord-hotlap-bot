@@ -102,12 +102,29 @@ client.on('message', async (m) => {
     const results = getChannelResults(messages)
 
     const ranking = generateRanking(results)
-    const rankingMessage = generateLeaderboardMessage(ranking)
+    const rankingMessage = new Discord.MessageAttachment(images, `ranking.jpeg`)
 
     return botRankingMessage
       .edit(rankingMessage)
       .then((m) => m.channel.send(`Ranglijst bijgewerkt. Je kunt 'm hier vinden: ${m.url}`))
       .catch(console.error)
+  }
+
+  if (m.content.startsWith('!embed')) {
+    const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#0099ff')
+      .setTitle('Ranking')
+      .addFields(
+        { name: 'Inline field title', value: 'Some value here', inline: true },
+        { name: 'Inline field title', value: 'Some value here', inline: true },
+        { name: 'Inline field title', value: 'Some value here', inline: true },
+        { name: 'Inline field title', value: 'Some value here', inline: true },
+        { name: 'Inline field title', value: 'Some value here', inline: true }
+      )
+      .setTimestamp()
+    exampleEmbed.setColor('#7289da')
+
+    return m.reply(exampleEmbed)
   }
 })
 
