@@ -6,9 +6,9 @@
   "license": "MIT",
   "scripts": {
     "build": "babel --extensions \".ts\" src -d dist",
-    "watch": "babel-watch --extensions \".ts\" src",
+    "watch": "NODE_ENV=development babel-watch --extensions \".ts\" src",
     "dev": "yarn watch",
-    "start": "node dist",
+    "start": "NODE_ENV=production node dist",
     "test": "jest",
     "lint": "tsc --noEmit"
   },

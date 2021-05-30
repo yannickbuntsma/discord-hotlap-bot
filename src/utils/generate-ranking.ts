@@ -2,6 +2,11 @@ import { Ranking, UserId, LaptimeWithUserData } from '../types'
 import { toSeconds } from './time'
 
 export function generateRanking(userWithResults: LaptimeWithUserData[]): Ranking {
+  /**
+   * Get all messages, except for the bot message.
+   * Get all users that posted times and all the times they posted, take the fastest one.
+   * Create an ordered list of these names and times, based on time.
+   */
   const sortedResults = userWithResults.sort((a, b) => toSeconds(a.laptime) - toSeconds(b.laptime))
 
   const usersWithTime: UserId[] = []

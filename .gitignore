@@ -46,7 +46,7 @@ testem.log
 Thumbs.db
 
 # Environment
-.env
+.env*
 
 # Discord stuff
 config.json

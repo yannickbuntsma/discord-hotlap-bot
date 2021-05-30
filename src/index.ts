@@ -8,7 +8,7 @@ import { BOT_RANKING_MESSAGE_TITLE } from './constants'
 import { getBotRankingMessage } from './utils/get-bot-ranking-message'
 import { getMessages } from './utils/get-text-channel-messages'
 
-dotenv.config()
+dotenv.config({ path: process.env.NODE_ENV === 'production' ? '.env' : '.env.development' })
 
 const client = new Discord.Client()
 
@@ -22,7 +22,7 @@ client.on('message', async (m) => {
   const purgeCommand = '!purge'
   if (m.content.startsWith(purgeCommand)) {
     const [a] = m.content.slice(purgeCommand.length).trim().split(/ +/)
-    const amount = parseInt(a)
+    const amount = parseInt(a + 1) // include purge command message in messages to delete
 
     if (typeof amount !== 'number') {
       return m.reply('Amount should be a number.')
@@ -52,9 +52,10 @@ client.on('message', async (m) => {
   }
 
   if (m.content.startsWith('!start')) {
+    const requestor = m.author
     const messages = await getMessages(m.channel)
 
-    const botRankingMessage = getBotRankingMessage(messages)
+    const botRankingMessage = getBotRankingMessage(messages, requestor)
 
     if (botRankingMessage) {
       return m.reply(
@@ -85,22 +86,19 @@ client.on('message', async (m) => {
   }
 
   if (m.content.startsWith('!stand')) {
-    console.log('Stand ophalen...')
-    /**
-     * Get all messages, except for the bot message.
-     * Get all users that posted times and all the times they posted, take the lowest one.
-     * Create an ordered list of these names and times, based on time.
-     */
-
+    const botUser = client.user
     const messages = await getMessages(m.channel)
-
-    const botRankingMessage = getBotRankingMessage(messages)
+    const botRankingMessage = getBotRankingMessage(messages, botUser)
 
     if (!botRankingMessage) {
       return m.reply(
         `Kon geen ranglijst-bericht vinden om bij te werken. Stuur \`!start\` naar dit kanaal om een ranglijst te creëren.`
       )
     }
+    console.log({
+      'botUser.id': botUser?.id,
+      'botRankingMessage.author.id': botRankingMessage.author.id,
+    })
 
     const results = getChannelResults(messages)
 
